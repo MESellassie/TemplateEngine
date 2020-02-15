@@ -63,6 +63,54 @@ async function start() {
             title = data.title;
             email = data.email;
         });
+
+        switch(title){
+            case "Engineer":
+                
+            await inquirer.prompt([
+                {
+                    type: `input`,
+                    message: `Enter your Engineer's GitHub handle.`,
+                    name: `gitHub`
+                }
+            ])
+            .then((data) => {
+                const engineer = new Engineer(name, id, email, data.gitHub);
+                memberTemplate = fs.readFileSync("templates/engineer.html");
+                teamHTML = `teamHTML memberTemplate`;
+            });
+
+            case "Intern":
+
+            await inquirer.prompt([
+                {
+                    type: `input`,
+                    message: `Enter the intern's school here.`,
+                    name: `school`
+                }
+            ])
+            .then((data) => {
+                const intern = new Intern(name, id, email, data.school);
+                memberTemplate = fs.readFileSync("templates/intern.html");
+                teamHTML = `teamHTML memberTemplate`;
+            });
+
+            case "Manager":
+
+                await inquirer.prompt([
+                    {
+                        type: `input`,
+                        message: `What is your manager's Office Number?`,
+                        name: `officeNum`
+                    }
+                ])
+                .then((data) => {
+                    const manager = new Manager(name, id, email, data.officeNum);
+                    memberTemplate = fs.readFileSync("templates/manager.html");
+                    teamHTML = `teamHTML memberTemplate`;
+                });
+        }
+        
     }
 }
 
