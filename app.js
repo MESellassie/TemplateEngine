@@ -12,9 +12,9 @@ async function start() {
 
     // Question 1 that prompts the user for team number/size
     await inquirer.prompt({
-        type: `number`,
-        message: `How many members are there on your team?`,
-        name: `howMany`
+        type: "number",
+        message: "How many members are there on your team?",
+        name: "howMany"
     })
         .then((data) => {
             teamNumber = data.howMany + 1;
@@ -22,12 +22,12 @@ async function start() {
 
     // Validation
     if (teamNumber === 0) {
-        console.log(`You can't have an empty team.`);
+        console.log("You can't have an empty team.");
         return;
     }
 
     // Prompts the user for the basic Employee methods/parameters
-    for (let i = 1; i < teamNUmber.length; i++) {
+    for (let i = 1; i < teamNumber.length; i++) {
         let name;
         let id;
         let title;
@@ -35,24 +35,24 @@ async function start() {
 
         await inquirer.prompt([
             {
-                type: `input`,
+                type: "input",
                 message: `Please, enter the employee's name.`,
-                name: `name`
+                name: "name"
             },
             {
-                type: `input`,
+                type: "input",
                 message: `Please, enter employee ${i}'s id.`,
-                name: `id`
+                name: "id"
             },
             {
-                type: `input`,
+                type: "input",
                 message: `Please, enter employee ${i}'s email.`,
-                name: `email`
+                name: "email"
             },
             {
-                type: `list`,
+                type: "list",
                 message: `Please, enter employee ${i}'s title.`,
-                name: `title`,
+                name: "title",
                 choices: ["Engineer", "Intern", "Manager"]
             }
         ])
@@ -69,48 +69,63 @@ async function start() {
                 
             await inquirer.prompt([
                 {
-                    type: `input`,
+                    type: "input",
                     message: `Enter your Engineer's GitHub handle.`,
-                    name: `gitHub`
-                }
+                    name: "github"
+                },
             ])
             .then((data) => {
-                const engineer = new Engineer(name, id, email, data.gitHub);
+                const engineer = new Engineer(name, id, email, data.github);
                 memberTemplate = fs.readFileSync("templates/engineer.html");
-                teamHTML = `teamHTML memberTemplate`;
+                teamHTML = teamHTML + eval(memberTemplate);
             });
+            break;
 
             case "Intern":
 
             await inquirer.prompt([
                 {
-                    type: `input`,
+                    type: "input",
                     message: `Enter the intern's school here.`,
-                    name: `school`
-                }
+                    name: "school"
+                },
             ])
             .then((data) => {
                 const intern = new Intern(name, id, email, data.school);
                 memberTemplate = fs.readFileSync("templates/intern.html");
-                teamHTML = `teamHTML memberTemplate`;
+                teamHTML = teamHTML + eval(memberTemplate);
             });
+            break;
 
             case "Manager":
 
                 await inquirer.prompt([
                     {
-                        type: `input`,
+                        type: "input",
                         message: `What is your manager's Office Number?`,
-                        name: `officeNum`
+                        name: "officeNum"
                     }
                 ])
                 .then((data) => {
                     const manager = new Manager(name, id, email, data.officeNum);
                     memberTemplate = fs.readFileSync("templates/manager.html");
-                    teamHTML = `teamHTML memberTemplate`;
+                    teamHTML = teamHTML + eval(memberTemplate);
                 });
+                break;
         }
         
-    }
+    };
+
+    const finalHTML = fs.readFileSync("templates/employee.html");
+
+    teamHTML = eval('`'+ finalHTML +'`');
+
+    fs.writeFile("output/fullTeam.html", teamHTML, function(err){
+        if (err) {
+            return console.log(err);
+        }
+        console.log("Welcome to the team");
+    });
 }
 
+start();

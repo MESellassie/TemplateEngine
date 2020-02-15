@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Personal CSS Link -->
-    <link rel="stylesheet" href="/templates/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Employee</title>
 </head>
 
@@ -26,20 +26,8 @@
             <div class="row">
                 <div class="col-md-10 text-center teamInfo">
 
-                    <!-- Intern HTML Template -->
-                    <div class="card m-4 shadow">
-                        <div class="card-header">
-                            <h3>${Intern.name}</h3>
-                            <h5>${Intern.getRole()}</h5>
-                        </div>
-                        <div class="card m-4 shadow">
-                            <ul class="list-group">
-                                <li class="list-group-item">ID: ${Intern.id}</li>
-                                <li class="list-group-item">Email: ${Intern.email}</li>
-                                <li class="list-group-item">School: ${Intern.school}</li>
-                            </ul>
-                        </div>
-                    </div>
+                    ${teamHTML}
+
                 </div>
             </div>
         </div>
@@ -47,3 +35,4 @@
 </body>
 
 </html>
+
