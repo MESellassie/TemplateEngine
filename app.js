@@ -6,20 +6,22 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-async function start() {
+async function getRolling() {
     let teamHTML = "";
     let teamNumber;
 
     // Question 1 that prompts the user for team number/size
-    await inquirer.prompt({
+await inquirer.prompt({
         type: "number",
         message: "How many members are there on your team?",
         name: "howMany"
     })
         .then((data) => {
+            console.log(data)
             teamNumber = data.howMany + 1;
         });
 
+        
     // Validation
     if (teamNumber === 0) {
         console.log("You can't have an empty team.");
@@ -118,9 +120,9 @@ async function start() {
 
     const finalHTML = fs.readFileSync("templates/employee.html");
 
-    teamHTML = eval('`'+ finalHTML +'`');
+    teamHTML = eval(finalHTML);
 
-    fs.writeFile("output/fullTeam.html", teamHTML, function(err){
+    await fs.writeFile("output/fullTeam.html", teamHTML, function(err){
         if (err) {
             return console.log(err);
         }
@@ -128,4 +130,4 @@ async function start() {
     });
 }
 
-start();
+getRolling();
