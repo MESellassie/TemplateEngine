@@ -29,7 +29,7 @@ await inquirer.prompt({
     }
 
     // Prompts the user for the basic Employee methods/parameters
-    for (let i = 1; i < teamNumber.length; i++) {
+    for (let i = 1; i < teamNumber; i++) {
         let name;
         let id;
         let title;
