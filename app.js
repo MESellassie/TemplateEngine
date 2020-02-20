@@ -7,6 +7,7 @@ const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
 async function getRolling() {
+    console.log("Let's build your team.")
     let teamHTML = "";
     let teamNumber;
 
@@ -79,7 +80,7 @@ await inquirer.prompt({
             .then((data) => {
                 const engineer = new Engineer(name, id, email, data.github);
                 memberTemplate = fs.readFileSync("templates/engineer.html");
-                teamHTML = teamHTML + eval(memberTemplate);
+                teamHTML = teamHTML + eval('`' + memberTemplate + '`');
             });
             break;
 
@@ -95,7 +96,7 @@ await inquirer.prompt({
             .then((data) => {
                 const intern = new Intern(name, id, email, data.school);
                 memberTemplate = fs.readFileSync("templates/intern.html");
-                teamHTML = teamHTML + eval(memberTemplate);
+                teamHTML = teamHTML + eval('`'+ memberTemplate + '`');
             });
             break;
 
@@ -111,7 +112,7 @@ await inquirer.prompt({
                 .then((data) => {
                     const manager = new Manager(name, id, email, data.officeNum);
                     memberTemplate = fs.readFileSync("templates/manager.html");
-                    teamHTML = teamHTML + eval(memberTemplate);
+                    teamHTML = teamHTML + eval('`' + memberTemplate + '`');
                 });
                 break;
         }
@@ -120,9 +121,9 @@ await inquirer.prompt({
 
     const finalHTML = fs.readFileSync("templates/employee.html");
 
-    teamHTML = eval(finalHTML);
+    teamHTML = eval('`'+ finalHTML + '`');
 
-    await fs.writeFile("output/fullTeam.html", teamHTML, function(err){
+    fs.writeFile("output/fullTeam.html", teamHTML, function(err){
         if (err) {
             return console.log(err);
         }
